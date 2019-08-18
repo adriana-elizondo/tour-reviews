@@ -6,9 +6,16 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Montserrat-Regular.ttf">
+            <string>Montserrat-Regular</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TourReviewsViewController" customModule="TourReviews" customModuleProvider="target">
             <connections>
+                <outlet property="activityIndicator" destination="Lbs-Jo-rEE" id="a3w-Wy-wFF"/>
+                <outlet property="loadingView" destination="XvA-VC-JX9" id="gcM-ME-y23"/>
                 <outlet property="reviewsTableView" destination="NOy-HM-usN" id="kDy-DU-0Oq"/>
                 <outlet property="view" destination="iN0-l3-epB" id="XrC-8y-HPy"/>
             </connections>
@@ -18,24 +25,77 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="Lbs-Jo-rEE">
+                    <rect key="frame" x="197" y="842" width="20" height="20"/>
+                </activityIndicatorView>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="NOy-HM-usN">
                     <rect key="frame" x="0.0" y="44" width="414" height="818"/>
-                    <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="cBs-oC-03m"/>
                         <outlet property="delegate" destination="-1" id="53U-5r-qHg"/>
                     </connections>
                 </tableView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XvA-VC-JX9" customClass="LoadingView" customModule="TourReviews" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sorry something wen't wrong );" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n5p-H1-0k0">
+                            <rect key="frame" x="40" y="338" width="334" height="21"/>
+                            <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="rFM-6U-RzT">
+                            <rect key="frame" x="197" y="399" width="20" height="20"/>
+                        </activityIndicatorView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hze-tj-CHx">
+                            <rect key="frame" x="187" y="389" width="40" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="40" id="kbf-3l-6t3"/>
+                                <constraint firstAttribute="height" constant="40" id="mIx-Rg-EC2"/>
+                            </constraints>
+                            <state key="normal" title="Button" image="refresh"/>
+                            <connections>
+                                <action selector="refreshTapped" destination="XvA-VC-JX9" eventType="touchUpInside" id="wK1-rN-a7O"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <constraints>
+                        <constraint firstItem="hze-tj-CHx" firstAttribute="centerY" secondItem="XvA-VC-JX9" secondAttribute="centerY" id="2Ry-95-vu9"/>
+                        <constraint firstItem="n5p-H1-0k0" firstAttribute="leading" secondItem="XvA-VC-JX9" secondAttribute="leading" constant="40" id="3D9-eD-NRS"/>
+                        <constraint firstItem="rFM-6U-RzT" firstAttribute="top" secondItem="n5p-H1-0k0" secondAttribute="bottom" constant="40" id="KYe-ws-dwv"/>
+                        <constraint firstItem="hze-tj-CHx" firstAttribute="centerX" secondItem="XvA-VC-JX9" secondAttribute="centerX" id="a6b-mq-bPc"/>
+                        <constraint firstAttribute="trailing" secondItem="n5p-H1-0k0" secondAttribute="trailing" constant="40" id="aJE-ni-LNh"/>
+                        <constraint firstItem="rFM-6U-RzT" firstAttribute="centerX" secondItem="XvA-VC-JX9" secondAttribute="centerX" id="mSt-uY-Rkb"/>
+                        <constraint firstItem="n5p-H1-0k0" firstAttribute="centerX" secondItem="XvA-VC-JX9" secondAttribute="centerX" id="n35-G2-fh1"/>
+                        <constraint firstItem="rFM-6U-RzT" firstAttribute="centerY" secondItem="XvA-VC-JX9" secondAttribute="centerY" id="p3p-cO-NaH"/>
+                    </constraints>
+                    <connections>
+                        <outlet property="activityIndicator" destination="rFM-6U-RzT" id="6er-el-XWd"/>
+                        <outlet property="loadingMessage" destination="n5p-H1-0k0" id="hTB-Nj-GDR"/>
+                        <outlet property="refreshButton" destination="hze-tj-CHx" id="pKt-XS-TEL"/>
+                    </connections>
+                </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="XvA-VC-JX9" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="0TF-FB-CQi"/>
                 <constraint firstItem="NOy-HM-usN" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="8uH-GD-YUK"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="NOy-HM-usN" secondAttribute="bottom" id="JvQ-MP-721"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="NOy-HM-usN" secondAttribute="trailing" id="SnK-4n-5Ls"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="XvA-VC-JX9" secondAttribute="bottom" id="T9b-ZX-odi"/>
+                <constraint firstItem="XvA-VC-JX9" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="i3M-Pg-JhN"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="XvA-VC-JX9" secondAttribute="trailing" id="lF4-KH-NrG"/>
                 <constraint firstItem="NOy-HM-usN" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="pqN-t6-4hL"/>
+                <constraint firstItem="Lbs-Jo-rEE" firstAttribute="bottom" secondItem="NOy-HM-usN" secondAttribute="bottom" id="pwi-0f-57Z"/>
+                <constraint firstItem="Lbs-Jo-rEE" firstAttribute="centerX" secondItem="NOy-HM-usN" secondAttribute="centerX" id="s8h-oB-vnC"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <point key="canvasLocation" x="139" y="151"/>
         </view>
     </objects>
+    <resources>
+        <image name="refresh" width="170.66667175292969" height="170.66667175292969"/>
+    </resources>
 </document>

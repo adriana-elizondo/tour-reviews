@@ -18,5 +18,7 @@ class TourReviewsPresenter: TourReviewsPresentingProtocol {
     func presentReviews(with response: Reviews.Response) {
         viewcontroller?.displayReviewItems(with: Reviews.ViewModel(with: response))
     }
-    func presentError(error: NetworkResponseError) {}
+    func presentError(error: NetworkResponseError) {
+        viewcontroller?.displayError()
+    }
 }

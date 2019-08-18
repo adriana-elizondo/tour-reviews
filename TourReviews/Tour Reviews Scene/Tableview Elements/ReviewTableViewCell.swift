@@ -18,7 +18,7 @@ class ReviewTableViewCell: UITableViewCell {
         reviewTitle.text = review.title
         reviewTitle.sizeToFit()
         reviewMessage.text = review.message
-        authorAndDate.text = "\(review.reviewerName) - \(review.reviewerCountry) • \(review.date)"
+        authorAndDate.text = "\(review.reviewerName) - \(review.reviewerCountry) • \(review.date)     \(CountryCodeEmoji.sharedInstance.emojiForCountry(with: review.reviewerCountry))"
         ratingLabel.text = starsForRating(rating: Double(review.rating) ?? 0)
     }
     private func starsForRating(rating: Double) -> String {

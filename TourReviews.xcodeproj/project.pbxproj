@@ -13,6 +13,8 @@
 		26ABD566230827BD00C6ADA8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26ABD564230827BD00C6ADA8 /* LaunchScreen.storyboard */; };
 		26ABD571230827BD00C6ADA8 /* TourReviewsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26ABD570230827BD00C6ADA8 /* TourReviewsTests.swift */; };
 		26ABD5832308280600C6ADA8 /* libNetworkLayer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 26ABD581230827F700C6ADA8 /* libNetworkLayer.a */; };
+		26B5A53D2308FE4B00E73DDC /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B5A53C2308FE4B00E73DDC /* StringExtensions.swift */; };
+		26B5A5402309031600E73DDC /* CountryCodeEmoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B5A53F2309031600E73DDC /* CountryCodeEmoji.swift */; };
 		26F1400323082D2E00AC2E6D /* TourReviewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F1400223082D2E00AC2E6D /* TourReviewsViewController.swift */; };
 		26F1400623082D3C00AC2E6D /* TourReviewsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F1400523082D3C00AC2E6D /* TourReviewsInteractor.swift */; };
 		26F1400823082D4800AC2E6D /* TourReviewsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F1400723082D4800AC2E6D /* TourReviewsPresenter.swift */; };
@@ -73,6 +75,8 @@
 		26ABD570230827BD00C6ADA8 /* TourReviewsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourReviewsTests.swift; sourceTree = "<group>"; };
 		26ABD572230827BD00C6ADA8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		26ABD57C230827F700C6ADA8 /* NetworkLayer.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = NetworkLayer.xcodeproj; path = networklayer/NetworkLayer.xcodeproj; sourceTree = "<group>"; };
+		26B5A53C2308FE4B00E73DDC /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
+		26B5A53F2309031600E73DDC /* CountryCodeEmoji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCodeEmoji.swift; sourceTree = "<group>"; };
 		26F1400223082D2E00AC2E6D /* TourReviewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourReviewsViewController.swift; sourceTree = "<group>"; };
 		26F1400523082D3C00AC2E6D /* TourReviewsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourReviewsInteractor.swift; sourceTree = "<group>"; };
 		26F1400723082D4800AC2E6D /* TourReviewsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourReviewsPresenter.swift; sourceTree = "<group>"; };
@@ -219,6 +223,8 @@
 			children = (
 				26F14014230833AC00AC2E6D /* UIExtensions.swift */,
 				26F14016230838EE00AC2E6D /* CodableExtensions.swift */,
+				26B5A53C2308FE4B00E73DDC /* StringExtensions.swift */,
+				26B5A53F2309031600E73DDC /* CountryCodeEmoji.swift */,
 			);
 			path = "Common Helpers";
 			sourceTree = "<group>";
@@ -423,7 +429,9 @@
 				26F14015230833AC00AC2E6D /* UIExtensions.swift in Sources */,
 				26F1400A23082D5400AC2E6D /* TourReviewsWorker.swift in Sources */,
 				26F1400C23082D6100AC2E6D /* TourReviewsModels.swift in Sources */,
+				26B5A53D2308FE4B00E73DDC /* StringExtensions.swift in Sources */,
 				26ABD55A230827BC00C6ADA8 /* AppDelegate.swift in Sources */,
+				26B5A5402309031600E73DDC /* CountryCodeEmoji.swift in Sources */,
 				26F1401A23083E5E00AC2E6D /* ReviewTableViewCell.swift in Sources */,
 				26F140122308326100AC2E6D /* ReviewsServices.swift in Sources */,
 				26F14017230838EE00AC2E6D /* CodableExtensions.swift in Sources */,
