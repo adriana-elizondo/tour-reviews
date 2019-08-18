@@ -106,7 +106,9 @@ class TourReviewsViewController: UIViewController, TourReviewsDisplayProtocol {
         for current in previousTotal..<currentTotal {
             indexPaths.append(IndexPath(row: current, section: 0))
         }
-        reviewsTableView.insertRows(at: indexPaths, with: .none)
+        UIView.performWithoutAnimation {
+         reviewsTableView.insertRows(at: indexPaths, with: .none)
+        }
     }
     func displayError() {
         if currentPage == 0 {

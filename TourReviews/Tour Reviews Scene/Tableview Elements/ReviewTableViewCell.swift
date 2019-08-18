@@ -23,7 +23,7 @@ class ReviewTableViewCell: UITableViewCell {
     }
     private func starsForRating(rating: Double) -> String {
         guard rating > 0 else { return "" }
-        var starsString = "★"
+        var starsString = ""
         for _ in 1...Int(rating.rounded()) {
             starsString += "★"
         }
