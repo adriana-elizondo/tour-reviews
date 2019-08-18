@@ -18,7 +18,7 @@ class TourReviewsWorker: TourReviewsAPIProtocol {
     private var apiPath = "/berlin-l17/tempelhof-2-hour-airport-history-tour-berlin-airlift-more-t23776/reviews.json"
     private var reviewsService = ReviewsService()
     func loadReviews(in page: Int, numberToLoad: Int, with completion: @escaping ReviewsAPICompletion) {
-        let parameters = ReviewsParamaters(count: numberToLoad, page: page)
+        let parameters = ReviewsParamaters(count: numberToLoad, page: page, sortBy: "date_of_review", direction: "desc")
         reviewsService.parameters = parameters
         reviewsService.apiPath = apiPath
         reviewsService.loadReviews { (response, error) in
