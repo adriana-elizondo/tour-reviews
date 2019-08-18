@@ -10,22 +10,28 @@ import Foundation
 import UIKit
 
 class LoadingView: UIView {
-   @IBOutlet weak var loadingMessage: UILabel!
+    @IBOutlet weak var loadingMessage: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var refreshButton: UIButton!
     var refreshAction: (() -> Void)?
+    private func showMe() {
+        guard let parent = superview else { return }
+        parent.bringSubviewToFront(self)
+    }
     func startLoading() {
+        showMe()
         refreshButton.isHidden = true
         activityIndicator.startAnimating()
         loadingMessage.text = "Loading..."
-        superview?.bringSubviewToFront(self)
     }
     func stopLoading() {
+        guard let parent = self.superview else { return }
         activityIndicator.stopAnimating()
         loadingMessage.text = ""
-        superview?.sendSubviewToBack(self)
+        parent.sendSubviewToBack(self)
     }
     func displayRefreshUI(with action: @escaping () -> Void) {
+        showMe()
         refreshAction = action
         refreshButton.isHidden = false
         activityIndicator.stopAnimating()
@@ -49,27 +55,28 @@ class TourReviewsViewController: UIViewController, TourReviewsDisplayProtocol {
             reviewsTableView.tableFooterView = UIView()
             reviewsTableView.prefetchDataSource = self
             reviewsTableView.register(UINib(nibName: "ReviewTableViewCell", bundle: nil),
-            forCellReuseIdentifier: "reviewCell")
+                                      forCellReuseIdentifier: "reviewCell")
             reviewsTableView.rowHeight = UITableView.automaticDimension
             reviewsTableView.estimatedRowHeight = 100
         }
     }
-    private var interactor: TourReviewsBusinessLogic?
-    private var viewModel: Reviews.ViewModel? {
+    var interactor: TourReviewsBusinessLogic?
+    var viewModel: Reviews.ViewModel? {
         didSet {
             if let updatedReviews = viewModel?.reviews {
                 reviews += updatedReviews
             }
         }
     }
-    private var reviews = [Reviews.Review]()
-    private var currentPage = 0
-    private var currentTotal = 20
+    var reviews = [Reviews.Review]()
+    var currentPage = 0
+    var currentTotal = 20
+    var previousTotal = 0
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
     }
-    private func setup() {
+    func setup() {
         let viewcontroller = self
         let interactor = TourReviewsInteractor()
         let presenter = TourReviewsPresenter()
@@ -79,19 +86,36 @@ class TourReviewsViewController: UIViewController, TourReviewsDisplayProtocol {
         self.title = "Berlin-Tempelhof airport tour"
         loadInitialData()
     }
-    private func loadInitialData() {
+    func loadInitialData() {
         loadingView.startLoading()
+        interactor?.loadReviews(in: currentPage, totalToLoad: 20)
+    }
+    func loadNextPage() {
+        activityIndicator.startAnimating()
         interactor?.loadReviews(in: currentPage, totalToLoad: 20)
     }
     func displayReviewItems(with viewModel: Reviews.ViewModel) {
         self.viewModel = viewModel
         loadingView.stopLoading()
         activityIndicator.stopAnimating()
-        reviewsTableView.reloadData()
+        guard currentPage > 0 else { reviewsTableView.reloadData(); return }
+        addNewRows()
+    }
+    func addNewRows() {
+        var indexPaths = [IndexPath]()
+        for current in previousTotal..<currentTotal {
+            indexPaths.append(IndexPath(row: current, section: 0))
+        }
+        reviewsTableView.insertRows(at: indexPaths, with: .none)
     }
     func displayError() {
-        loadingView.displayRefreshUI { [weak self] in
-            self?.loadInitialData()
+        if currentPage == 0 {
+            loadingView.displayRefreshUI { [weak self] in
+                self?.loadInitialData()
+            }
+        } else {
+            //retry in background
+            loadNextPage()
         }
     }
 }
@@ -119,9 +143,9 @@ extension TourReviewsViewController: UITableViewDataSource, UITableViewDelegate,
          */
         if (indexPaths.last?.row ?? 0) > (currentTotal - 3) {
             currentPage += 1
+            previousTotal = currentTotal
             currentTotal += 20
-            activityIndicator.startAnimating()
-            interactor?.loadReviews(in: currentPage, totalToLoad: 20)
+            loadNextPage()
         }
     }
 }

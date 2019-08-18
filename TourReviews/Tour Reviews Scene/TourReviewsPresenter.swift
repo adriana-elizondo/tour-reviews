@@ -8,7 +8,6 @@
 
 import Foundation
 import NetworkLayer
-
 protocol TourReviewsPresentingProtocol {
     func presentReviews(with response: Reviews.Response)
     func presentError(error: NetworkResponseError)
